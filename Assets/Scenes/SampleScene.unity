@@ -97,7 +97,6 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -125,7 +124,6 @@ NavMeshSettings:
 --- !u!43 &12837765
 Mesh:
   m_ObjectHideFlags: 0
-<<<<<<< HEAD
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -450,34 +448,6 @@ Mesh:
     size: 0
     path: 
 --- !u!1 &87643671
-=======
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3496089290086783992, guid: 87f4f8e32471ec24c86b44f772ed09fd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189267560919556492, guid: 87f4f8e32471ec24c86b44f772ed09fd,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189267560919556492, guid: 87f4f8e32471ec24c86b44f772ed09fd,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6029095387338784497, guid: 87f4f8e32471ec24c86b44f772ed09fd,
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6029095387338784497, guid: 87f4f8e32471ec24c86b44f772ed09fd,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.998
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -521,7 +491,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-<<<<<<< HEAD
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
@@ -1007,34 +976,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &102785835
-=======
-  serializedVersion: 8
-  m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    m_Bits: 4294967295
-  m_Lightmapping: 1
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47149,7 +47090,6 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
   - component: {fileID: 2082658478}
   - component: {fileID: 2082658482}
   - component: {fileID: 2082658481}
@@ -47158,47 +47098,12 @@ GameObject:
   m_Layer: 0
   m_Name: Cube (9)
   m_TagString: Untagged
-=======
-  - component: {fileID: 1149957679}
-  - component: {fileID: 1149957678}
-  - component: {fileID: 1149957677}
-  - component: {fileID: 1149957676}
-  - component: {fileID: 1149957680}
-  - component: {fileID: 1149957675}
-  m_Layer: 0
-  m_Name: SkillCheckTest
-  m_TagString: enemy
->>>>>>> 7667f25a804d2d9263012c01654e18253e6d78a2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!4 &2082658478
 Transform:
-=======
---- !u!114 &1149957675
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1149957674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dd4ed8a5b86e847ba5a9573c0f3d94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  STR: 0
-  STRMod: 0
-  DEX: 0
-  DEXMod: 0
-  CON: 50
-  GS1: 0
-  GS1Mod: 0
-  HP: 0
-  DEF: 0
---- !u!65 &1149957676
-BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -48930,7 +48835,6 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139462667}
   m_Enabled: 1
-<<<<<<< HEAD
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -48964,56 +48868,18 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!33 &2139462672
 MeshFilter:
-=======
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dd4ed8a5b86e847ba5a9573c0f3d94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  STR: 8
-  STRMod: 2
-  DEX: 11
-  DEXMod: 3
-  CON: 12
-  CONMod: -1
-  GS1: 3
-  GS1Mod: 1
-  XP: 0
-  HP: 0
-  DEF: 0
---- !u!114 &1374854727
-MonoBehaviour:
->>>>>>> 7667f25a804d2d9263012c01654e18253e6d78a2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 2139462667}
   m_Mesh: {fileID: 554290359}
 --- !u!43 &2146298320
 Mesh:
-=======
-  m_GameObject: {fileID: 1374854720}
-  m_Enabled: 1
-  distance: 4
-  orbitingSpeed: 100
-  verticalSpeed: 18
-  maxHeight: 2
-  minHeight: -0.7
---- !u!1 &1609414502 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7530112234135269652, guid: f062c576443583b47b7b872581384f0c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1936076480277097097}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1609414507
-MonoBehaviour:
->>>>>>> 7667f25a804d2d9263012c01654e18253e6d78a2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_Name: pb_Mesh-15848
   serializedVersion: 10
   m_SubMeshes:
@@ -49171,14 +49037,6 @@ MonoBehaviour:
     offset: 0
     size: 0
     path: 
-=======
-  m_GameObject: {fileID: 1609414502}
-  m_Enabled: 1
-  m_EditorClassIdentifier: 
-  playerCube: {fileID: 1374854720}
-  otherCube: {fileID: 1149957674}
-  currentState: 0
->>>>>>> 7667f25a804d2d9263012c01654e18253e6d78a2
 --- !u!1001 &562605866483126531
 PrefabInstance:
   m_ObjectHideFlags: 0
