@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SkillCheck : MonoBehaviour
+public class SkillCheck
 {
     public int d; //d4, d6, d8, d10, d20 etc.
     public int dCount; // How many dice are used?
