@@ -9,11 +9,14 @@ public class Interact : MonoBehaviour
     public int d; //d4, d6, d8, d10, d20 etc.
     public int dCount; // How many dice are used?
     public float mod; // Relevant skill modifier
-    private readonly SkillCheck roll;
 
     private void OnTriggerEnter(Collider other)
     {
-        SkillCheck roll = new SkillCheck(difficulty, d, dCount, mod, xpGain);
-        roll.CheckSuccess();
+        SkillCheck roll = new SkillCheck(d, dCount, mod);
+        bool success = roll.CheckSuccess(difficulty, roll.Roll());
+        if(success == true)
+        {
+            roll.AwardXP(xpGain);
+        }
     }
 }
