@@ -5,17 +5,18 @@ using UnityEngine;
 public class StatSheet : MonoBehaviour
 {
     public float STR; // 0, Strength
-    public float STRMod;
+    private float STRMod;
     public float DEX; // 1, Dexterity
-    public float DEXMod;
+    private float DEXMod;
     public float CON; // 2, Constitution
-    public float CONMod;
+    private float CONMod;
     public float GS1; // 3, Generic skill for testing skill checks
     public float GS1Mod;
     public float XP;
     public float HP;
     public float DEF;
-    private readonly List<StatBase> CharacterStats = new List<StatBase>();
+    public List<StatBase> CharacterStats = new List<StatBase>();
+    public List<float> StatModifiers = new List<float>();
     Random dice = new Random(); // Random number generator
 
     public void Start()
@@ -26,22 +27,22 @@ public class StatSheet : MonoBehaviour
     public void calculateStats()
     {
         // Strength
-        StatBase str = new StatBase(STR);
-        str.AddModifier(new StatModifier(STRMod));
-        CharacterStats.Add(str);
-        Debug.Log("Strength: " + CharacterStats[0].Value.ToString());
-        
+        STRMod = calculateMod(STR);
+        CharacterStats.Add(new StatBase(STR));
+        StatModifiers.Add(STRMod);
+        Debug.Log("Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString());
+
         // Dexterity
-        StatBase dex = new StatBase(DEX);
-        dex.AddModifier(new StatModifier(DEXMod));
-        CharacterStats.Add(dex);
-        Debug.Log("Dexterity: " + CharacterStats[1].Value.ToString());
-        
+        DEXMod = calculateMod(DEX);
+        CharacterStats.Add(new StatBase(DEX));
+        StatModifiers.Add(DEXMod);
+        Debug.Log("Dexterity: " + CharacterStats[1].Value.ToString() + ", mod " + StatModifiers[1].ToString());
+
         // Constitution
-        StatBase con = new StatBase(CON);
-        con.AddModifier(new StatModifier(CONMod));
-        CharacterStats.Add(con);
-        Debug.Log("Constitution: " + CharacterStats[2].Value.ToString());
+        CONMod = calculateMod(CON);
+        CharacterStats.Add(new StatBase(CON));
+        StatModifiers.Add(CONMod);
+        Debug.Log("Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString());
 
         // Generic Skill 1
         StatBase gs1 = new StatBase(GS1);
@@ -54,5 +55,20 @@ public class StatSheet : MonoBehaviour
         DEF = 10 + DEXMod;
         XP = 0;
         Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString());
+    }
+
+    private float calculateMod(float stat)
+    {
+        float mod;
+        if (stat <= 5) { mod = -3; }
+        else if (stat == 6 || stat == 7) { mod = -2; }
+        else if (stat == 8 || stat == 9) { mod = -1; }
+        else if (stat == 10 || stat == 11) { mod = 0; }
+        else if (stat == 12 || stat == 13) { mod = 1; }
+        else if (stat == 14 || stat == 15) { mod = 2; }
+        else if (stat == 16 || stat == 17) { mod = 3; }
+        else if (stat == 18 || stat == 19) { mod = 4; }
+        else { mod = 5; }
+        return mod;
     }
 }
