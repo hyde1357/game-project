@@ -8,19 +8,19 @@ public class MovementControls : MonoBehaviour
     private float currentSpeed = 0f;
     private float speedSmoothVelocity = 0f;
     private float speedSmoothTime = 0.1f;
-    private float rotationSpeed = 0.1f;
+    private float rotationSpeed = 0.07f;
     private float gravity = 3f;
 
     private Transform mainCameraTransform = null;
 
     private CharacterController controller = null;
-    private Animator animator = null; // Animator not necessary at the moment, but will be once we add animations
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         mainCameraTransform = Camera.main.transform;
     }
 
@@ -49,11 +49,14 @@ public class MovementControls : MonoBehaviour
             gravityVector.y -= gravity; //lower the character if airborn to the ground
         }
 
-        if(desiredMoveDirection != Vector3.zero)
+        if (desiredMoveDirection != Vector3.zero)
         {
             //Rotates character to face direction.
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), rotationSpeed);
+            anim.SetInteger("condition", 1);
         }
+        else
+            anim.SetInteger("condition", 0);
 
         float targetSpeed = movementSpeed * movementInput.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
