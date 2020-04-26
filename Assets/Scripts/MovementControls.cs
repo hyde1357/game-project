@@ -53,10 +53,20 @@ public class MovementControls : MonoBehaviour
         {
             //Rotates character to face direction.
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), rotationSpeed);
-            anim.SetInteger("condition", 1);
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                movementSpeed = 6f;
+                anim.SetInteger("condition", 2);
+            }
+            else
+                anim.SetInteger("condition", 1);
         }
         else
+        {
             anim.SetInteger("condition", 0);
+            movementSpeed = 2f;
+        }
 
         float targetSpeed = movementSpeed * movementInput.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
