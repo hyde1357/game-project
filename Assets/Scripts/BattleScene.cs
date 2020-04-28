@@ -6,6 +6,9 @@ public class BattleScene : MonoBehaviour
 {
     public GameObject playerCube;
     public GameObject otherCube;
+    private GameObject[] enemies;
+
+    public FightMenu battleUI;
 
     public enum BattleStates {
         NONE,
@@ -16,6 +19,7 @@ public class BattleScene : MonoBehaviour
         LOSE
     }
 
+
     //create BattleStates variable to control the state of battle
     public BattleStates currentState;
     public Distance d;
@@ -23,15 +27,14 @@ public class BattleScene : MonoBehaviour
 
     void Start()
     {
-        // Initialize Distance d
-        d = new Distance(playerCube, otherCube);
+
+        // Fills array with gameobjects tagged as "enemy"
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
+
+        otherCube = null;
 
         // Set currentState to NONE
         currentState = BattleStates.NONE;
-        
-        // create a skillchecker object using the interact values assigned
-        // to the enemy in unity's inspector
-        enemyInteractVals = new SkillCheck(otherCube.GetComponent<Interact>().d, otherCube.GetComponent<Interact>().dCount, otherCube.GetComponent<Interact>().mod);
     }
 
     void Update()
@@ -39,15 +42,30 @@ public class BattleScene : MonoBehaviour
         // Changes currentState if CheckDistance from Distance class returns true
         changeStateFromDistance();
 
-        // Checks to see what the currentState is
-        //checkStates();
+        // Checks to see what the currentState is, sends message to console.
+
+        checkStates();
+
+        //Looking for an enemy that's close by
+        otherCube = FindClosestEnemy();
+        enemyInteractValsSetup();
+    }
+
+    private void enemyInteractValsSetup()
+    {
+        if (otherCube != null)
+        {
+            // create a skillchecker object using the interact values assigned
+            // to the enemy in unity's inspector
+            enemyInteractVals = new SkillCheck(otherCube.GetComponent<Interact>().d, otherCube.GetComponent<Interact>().dCount, otherCube.GetComponent<Interact>().mod);
+        }
     }
 
     private void changeStateFromDistance()
     {
         // changes the BattleState to BEGIN to initiate the fight
         // if the distance between two items is less than 3
-        if (d.CheckDistance() == true)
+        if (otherCube!= null)
         {
             currentState = BattleStates.BEGIN;
         }
@@ -61,11 +79,13 @@ public class BattleScene : MonoBehaviour
     {
         if (currentState == BattleStates.BEGIN)
         {
+            //battleUI.FightEnsued = true;
             Debug.Log("CURRENTSTATE IS BEGIN");
         }
     }
 
     // Set up button "FIGHT" to attack the enemy
+    // Temporary solution as we get the UI set up
     void OnGUI()
     {
         // If the "Fight" button on gui is pressed
@@ -134,5 +154,21 @@ public class BattleScene : MonoBehaviour
             currentState = BattleStates.WIN;
             Debug.Log("PLAYER has WON the battle.");
         }
+    }
+
+    // Finds the closest enemy
+    // Not yet optimized to handle multiple enemies within the same radius
+    public GameObject FindClosestEnemy()
+    {
+        GameObject closest = null;
+        foreach (GameObject GO in enemies)
+        {
+            d = new Distance(playerCube, GO);
+            if (d.CheckDistance())
+            {
+                closest = GO;
+            }
+        }
+        return closest;
     }
 }

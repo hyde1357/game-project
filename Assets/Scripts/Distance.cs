@@ -12,6 +12,7 @@ public class Distance
     public float distance_;
     public bool withinDistance;
 
+
     public Distance(GameObject cube1, GameObject cube2)
     {
         playerCube = cube1;
