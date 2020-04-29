@@ -10,11 +10,10 @@ public class StatSheet : MonoBehaviour
     private float DEXMod;
     public float CON; // 2, Constitution
     private float CONMod;
-    public float GS1; // 3, Generic skill for testing skill checks
-    public float GS1Mod;
     public float XP;
     public float HP;
     public float DEF;
+    public int level;
     public List<StatBase> CharacterStats = new List<StatBase>();
     public List<float> StatModifiers = new List<float>();
     Random dice = new Random(); // Random number generator
@@ -44,17 +43,12 @@ public class StatSheet : MonoBehaviour
         StatModifiers.Add(CONMod);
         Debug.Log("Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString());
 
-        // Generic Skill 1
-        StatBase gs1 = new StatBase(GS1);
-        gs1.AddModifier(new StatModifier(GS1Mod));
-        CharacterStats.Add(gs1);
-        Debug.Log("Generic skill 1: " + CharacterStats[3].Value.ToString());
-
-        // Initialize hit points, defense & XP
+        // Initialize hit points, defense, level & XP
         HP = 10 + CONMod;
         DEF = 10 + DEXMod;
+        level = 1;
         XP = 0;
-        Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString());
+        Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString() + ", level: " + level.ToString());
     }
 
     private float calculateMod(float stat)
