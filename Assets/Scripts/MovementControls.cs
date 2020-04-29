@@ -60,7 +60,10 @@ public class MovementControls : MonoBehaviour
                 anim.SetInteger("condition", 2);
             }
             else
+            {
                 anim.SetInteger("condition", 1);
+                movementSpeed = 2f;
+            }
         }
         else
         {
