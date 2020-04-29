@@ -6,7 +6,7 @@ public class BattleScene : MonoBehaviour
 {
     public GameObject playerCube;
     public GameObject otherCube;
-    private GameObject[] enemies;
+//    private GameObject[] enemies;
 
     public FightMenu battleUI;
 
@@ -29,26 +29,27 @@ public class BattleScene : MonoBehaviour
     {
 
         // Fills array with gameobjects tagged as "enemy"
-        enemies = GameObject.FindGameObjectsWithTag("enemy");
+        //enemies = GameObject.FindGameObjectsWithTag("enemy");
 
-        otherCube = null;
+        //otherCube = null;
 
         // Set currentState to NONE
-        currentState = BattleStates.NONE;
+        currentState = BattleStates.BEGIN;
+        enemyInteractValsSetup();
     }
 
     void Update()
     {
         // Changes currentState if CheckDistance from Distance class returns true
-        changeStateFromDistance();
+        //changeStateFromDistance();
 
         // Checks to see what the currentState is, sends message to console.
 
-        checkStates();
+        //checkStates();
 
         //Looking for an enemy that's close by
-        otherCube = FindClosestEnemy();
-        enemyInteractValsSetup();
+//        otherCube = FindClosestEnemy();
+       // enemyInteractValsSetup();
     }
 
     private void enemyInteractValsSetup()
@@ -75,22 +76,19 @@ public class BattleScene : MonoBehaviour
 
     //Used to check the currentState . use as debugger to see if the state
     // is displaying correctly.
-    void checkStates()
+    public BattleStates checkStates()
     {
-        if (currentState == BattleStates.BEGIN)
-        {
-            //battleUI.FightEnsued = true;
-            Debug.Log("CURRENTSTATE IS BEGIN");
-        }
+        //Debug.Log("The current state is : " + currentState);
+        return currentState;
     }
-
+    
     // Set up button "FIGHT" to attack the enemy
     // Temporary solution as we get the UI set up
-    void OnGUI()
+    public void OnGUI()
     {
         // If the "Fight" button on gui is pressed
-        if (GUILayout.Button("Fight"))
-        {
+     //   if (battleUI.PlayerBattleHud.Button("FightButton"))
+    //    {
             if (currentState == BattleStates.BEGIN)
             {
                 currentState = BattleStates.PLAYERTURN;
@@ -106,7 +104,7 @@ public class BattleScene : MonoBehaviour
                     EnemyTurn();
                     currentState = BattleStates.PLAYERTURN;
                 }
-            }
+ //           }
 
 //TODO fix mechanic so battlestate doesn't always
 // go back to "BEGIN" after player wins or loses
@@ -118,7 +116,7 @@ public class BattleScene : MonoBehaviour
         }
     }
 
-    private void EnemyTurn()
+    public void EnemyTurn()
     {
         // Check to see if roll against enemy is success
         // by using enemy's Interact script
@@ -130,14 +128,13 @@ public class BattleScene : MonoBehaviour
             Debug.Log("ENEMY hit PLAYER.");
         } else Debug.Log("PLAYER dodged!");
 
-        if (playerCube.GetComponent<StatSheet>().CON <= 0)
-        {
-            currentState = BattleStates.LOSE;
-            Debug.Log("PLAYER has LOST the battle.");
-        }
+        Debug.Log("Player CON: " + playerCube.GetComponent<StatSheet>().CON);
+
+        CheckPlayerCON();
+        CheckEnemyCON();
     }
 
-    private void PlayerTurn()
+    public void PlayerTurn()
     {
         // Check to see if roll against player is success
         // by using enemy's Interact script
@@ -149,16 +146,16 @@ public class BattleScene : MonoBehaviour
             Debug.Log("PLAYER hit ENEMY.");
         } else Debug.Log("ENEMY dodged!");
 
-        if (otherCube.GetComponent<StatSheet>().CON <= 0)
-        {
-            currentState = BattleStates.WIN;
-            Debug.Log("PLAYER has WON the battle.");
-        }
+        Debug.Log("Enemy CON: " + otherCube.GetComponent<StatSheet>().CON);
+
+        CheckPlayerCON();
+        CheckEnemyCON();
+        EnemyTurn();
     }
 
     // Finds the closest enemy
     // Not yet optimized to handle multiple enemies within the same radius
-    public GameObject FindClosestEnemy()
+ /*   public GameObject FindClosestEnemy()
     {
         GameObject closest = null;
         foreach (GameObject GO in enemies)
@@ -170,5 +167,27 @@ public class BattleScene : MonoBehaviour
             }
         }
         return closest;
+    }*/
+
+    public bool CheckPlayerCON()
+    {
+        // Check if player has hp that is 0
+        if (playerCube.GetComponent<StatSheet>().CON <= 0)
+        {
+            currentState = BattleStates.LOSE;
+            Debug.Log("PLAYER has LOST the battle.");
+            return true;
+        }
+        else return false;
+    }
+    public bool CheckEnemyCON()
+    {
+        if (otherCube.GetComponent<StatSheet>().CON <= 0)
+        {
+            currentState = BattleStates.WIN;
+            Debug.Log("PLAYER has WON the battle.");
+            return true;
+        }
+        else return false;
     }
 }

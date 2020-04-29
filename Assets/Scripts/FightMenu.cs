@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class FightMenu : MonoBehaviour
 {
-    public bool FightEnsued = false;
+    public static bool FightEnsued = false;
 
     public GameObject pauseMenuUI;
-
-    void Start()
-    {
-        
-    }
+    public BattleScene battleSceneRef;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+ /*       //CheckState();
+        if (FightEnsued)
         {
-            if (FightEnsued == true)
-            {
-                Pause();
-                //Debug.Log("Is true!");
-            }
+            Resume();
 
-            else
-            {
-                Resume();
-            }
+        }
+        else
+        {
+            Pause();
+        } */
+    }
+
+    private void CheckState()
+    {
+        if (battleSceneRef.checkStates() == BattleScene.BattleStates.BEGIN)
+        {
+            FightEnsued = true;
+        }
+        else
+        {
+            FightEnsued = false;
         }
     }
 
@@ -43,9 +48,4 @@ public class FightMenu : MonoBehaviour
         Time.timeScale = 0f;
         FightEnsued = true;
     }
-  /*      if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            FightEnsued = false;
-        }
-    } */
 }

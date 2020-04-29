@@ -22,7 +22,7 @@ public class Distance
     public bool CheckDistance()
     {
         distance_ = Vector3.Distance(playerCube.transform.position, otherCube.transform.position);
-        if (distance_ < 3) // if distance between cubes is less than 3 units
+        if (distance_ < 5) // if distance between cubes is less than 3 units
         {
             withinDistance = true;
         }

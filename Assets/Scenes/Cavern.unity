@@ -2686,7 +2686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &143548958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2779,8 +2779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154e693c20c36c34eb6cf3b65fedd6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FightEnsued: 0
   pauseMenuUI: {fileID: 253605624}
+  battleSceneRef: {fileID: 0}
 --- !u!1 &164518953
 GameObject:
   m_ObjectHideFlags: 0
@@ -17680,6 +17680,7 @@ GameObject:
   - component: {fileID: 680257655}
   - component: {fileID: 680257661}
   - component: {fileID: 680257660}
+  - component: {fileID: 680257658}
   m_Layer: 0
   m_Name: Skelly
   m_TagString: enemy
@@ -17753,11 +17754,23 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680257654}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &680257658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680257654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f538ceb136b6594580cc416274e7ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &680257659
 Transform:
   m_ObjectHideFlags: 0
@@ -18549,22 +18562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   interactionTransform: {fileID: 700143298}
---- !u!114 &700143300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700143294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ec5ff369f54784f92741149f8122e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCube: {fileID: 270827313}
-  otherCube: {fileID: 0}
-  battleUI: {fileID: 143548962}
-  currentState: 0
 --- !u!43 &702417862
 Mesh:
   m_ObjectHideFlags: 0
