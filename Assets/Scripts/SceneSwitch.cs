@@ -9,16 +9,30 @@ public class SceneSwitch : MonoBehaviour
     GameObject enemy;
     BattleScene battleScene;
 
+    // Get index of scene
+    int sceneIndex;
+
+    void Start()
+    {
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //Debug.Log("---------START-------------" + sceneIndex);
+    }
     void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //Debug.Log("---------TRIGG---------------" + sceneIndex);
     }
 
-    void PostBattle()
+    public void PostBattle(int index)
     {
-        if (battleScene.CheckPlayerCON())
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        }
+        //if (battleScene.CheckPlayerCON())
+        
+        SceneManager.LoadScene(index);
+        Debug.Log("pressed RUN");
+        //Debug.Log("----------------------------" + sceneIndex);
+        //sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+
     }
 }
