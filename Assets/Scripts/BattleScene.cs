@@ -122,16 +122,16 @@ public class BattleScene : MonoBehaviour
         // by using enemy's Interact script
         if (enemyInteractVals.CheckSuccess(0, 0) == true)
         {
-            // Deal damage to playerCube by getting CON 
+            // Deal damage to playerCube by getting HP 
             // and subtracting it by the Roll() value
-            playerCube.GetComponent<StatSheet>().CON -= enemyInteractVals.Roll();
+            playerCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
             Debug.Log("ENEMY hit PLAYER.");
         } else Debug.Log("PLAYER dodged!");
 
-        Debug.Log("Player CON: " + playerCube.GetComponent<StatSheet>().CON);
+        Debug.Log("Player HP: " + playerCube.GetComponent<StatSheet>().HP);
 
-        CheckPlayerCON();
-        CheckEnemyCON();
+        CheckPlayerHP();
+        CheckEnemyHP();
     }
 
     public void PlayerTurn()
@@ -140,16 +140,16 @@ public class BattleScene : MonoBehaviour
         // by using enemy's Interact script
         if (enemyInteractVals.CheckSuccess(0, 0) == true)
         {
-            // Deal damage to otherCube by getting CON 
+            // Deal damage to otherCube by getting HP 
             // and subtracting it by the Roll() value
-            otherCube.GetComponent<StatSheet>().CON -= enemyInteractVals.Roll();
+            otherCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
             Debug.Log("PLAYER hit ENEMY.");
         } else Debug.Log("ENEMY dodged!");
 
-        Debug.Log("Enemy CON: " + otherCube.GetComponent<StatSheet>().CON);
+        Debug.Log("Enemy HP: " + otherCube.GetComponent<StatSheet>().HP);
 
-        CheckPlayerCON();
-        CheckEnemyCON();
+        CheckPlayerHP();
+        CheckEnemyHP();
         EnemyTurn();
     }
 
@@ -169,10 +169,10 @@ public class BattleScene : MonoBehaviour
         return closest;
     }*/
 
-    public bool CheckPlayerCON()
+    public bool CheckPlayerHP()
     {
         // Check if player has hp that is 0
-        if (playerCube.GetComponent<StatSheet>().CON <= 0)
+        if (playerCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.LOSE;
             Debug.Log("PLAYER has LOST the battle.");
@@ -180,9 +180,9 @@ public class BattleScene : MonoBehaviour
         }
         else return false;
     }
-    public bool CheckEnemyCON()
+    public bool CheckEnemyHP()
     {
-        if (otherCube.GetComponent<StatSheet>().CON <= 0)
+        if (otherCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.WIN;
             Debug.Log("PLAYER has WON the battle.");
