@@ -16,12 +16,21 @@ public class MovementControls : MonoBehaviour
     private CharacterController controller = null;
     Animator anim;
 
+    public Vector3 gameStartVector;
+    public PlayerPosVector startingPosition;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         mainCameraTransform = Camera.main.transform;
+        transform.position = gameStartVector;
+
+        if (startingPosition.sceneTransitions > 0)
+        {
+            transform.position = startingPosition.initialValue;
+        }
     }
 
     // Update is called once per frame

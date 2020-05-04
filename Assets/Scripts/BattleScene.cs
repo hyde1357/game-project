@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleScene : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class BattleScene : MonoBehaviour
         WIN,
         LOSE
     }
-
+    
 
     //create BattleStates variable to control the state of battle
     public BattleStates currentState;
@@ -50,6 +51,11 @@ public class BattleScene : MonoBehaviour
         //Looking for an enemy that's close by
 //        otherCube = FindClosestEnemy();
        // enemyInteractValsSetup();
+    }
+
+    public void ChangeBattleState(BattleStates state)
+    {
+        currentState = state;
     }
 
     private void enemyInteractValsSetup()
@@ -187,6 +193,12 @@ public class BattleScene : MonoBehaviour
         else return false;
     }
 
-
+    public void onRun()
+    {
+        if (checkStates() == BattleStates.WIN)
+        {
+            Destroy(otherCube);
+        }
+    }
 
 }

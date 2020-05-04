@@ -6166,6 +6166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
+  gameStartVector: {x: 0, y: 0.69, z: -1.57}
+  startingPosition: {fileID: 11400000, guid: 0fa23f7a2a7d11a4b8a414e746ec7a93, type: 2}
 --- !u!108 &270827324
 Light:
   m_ObjectHideFlags: 0
@@ -19695,6 +19697,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 270827313}
   enemy: {fileID: 680257654}
+  playerPosition: {x: 0, y: 0, z: 0}
+  playerStorage: {fileID: 11400000, guid: 0fa23f7a2a7d11a4b8a414e746ec7a93, type: 2}
   battleScene: {fileID: 0}
 --- !u!4 &680257659
 Transform:
@@ -57331,6 +57335,11 @@ PrefabInstance:
     - target: {fileID: 562605867437800560, guid: 1457bd35332d82d4489558ec3bb02c9b,
         type: 3}
       propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 562605867437800561, guid: 1457bd35332d82d4489558ec3bb02c9b,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 562605867437800562, guid: 1457bd35332d82d4489558ec3bb02c9b,
