@@ -86,9 +86,6 @@ public class BattleScene : MonoBehaviour
     // Temporary solution as we get the UI set up
     public void OnGUI()
     {
-        // If the "Fight" button on gui is pressed
-     //   if (battleUI.PlayerBattleHud.Button("FightButton"))
-    //    {
             if (currentState == BattleStates.BEGIN)
             {
                 currentState = BattleStates.PLAYERTURN;
@@ -104,7 +101,6 @@ public class BattleScene : MonoBehaviour
                     EnemyTurn();
                     currentState = BattleStates.PLAYERTURN;
                 }
- //           }
 
 //TODO fix mechanic so battlestate doesn't always
 // go back to "BEGIN" after player wins or loses
@@ -190,4 +186,7 @@ public class BattleScene : MonoBehaviour
         }
         else return false;
     }
+
+
+
 }

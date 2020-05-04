@@ -5,34 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitch : MonoBehaviour
 {
-    GameObject player;
-    GameObject enemy;
-    BattleScene battleScene;
-
-    // Get index of scene
-    int sceneIndex;
+    public GameObject player;
+    public GameObject enemy;
 
     void Start()
     {
-        sceneIndex = SceneManager.GetActiveScene().buildIndex;
         //Debug.Log("---------START-------------" + sceneIndex);
     }
     void OnTriggerEnter(Collider other)
     {
+        //player.GetComponent<AudioSource>().Stop();
+        //DontDestroyOnLoad(player);
+        DontDestroyOnLoad(enemy);
         SceneManager.LoadScene(1);
-        sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        //Debug.Log("---------TRIGG---------------" + sceneIndex);
     }
 
-    public void PostBattle(int index)
+    public void Run()
     {
-        //if (battleScene.CheckPlayerCON())
-        
-        SceneManager.LoadScene(index);
+        SceneManager.LoadScene(0);
         Debug.Log("pressed RUN");
-        //Debug.Log("----------------------------" + sceneIndex);
-        //sceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-
+        Destroy(enemy);
     }
 }
