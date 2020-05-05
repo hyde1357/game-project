@@ -13,6 +13,8 @@ public class SceneSwitch : MonoBehaviour
     public PlayerPosVector playerStorage;
     public BattleScene battleScene;
 
+    public int sceneNum;
+
     float curDist = 2f;
 
     void Start()
@@ -30,27 +32,34 @@ public class SceneSwitch : MonoBehaviour
 
         playerStorage.initialValue = playerPosition;
         playerStorage.sceneTransitions++;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneNum);
         battleScene.currentState = BattleScene.BattleStates.PLAYERTURN;
+        playerStorage.currentState = PlayerPosVector.MapStates.BATTLE;
         Debug.Log(battleScene.currentState);
     }
 
     private void FindSkeleton()
     {
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
-        float curDist = 2f;
+        float curDist = .5f;
 
         foreach (GameObject item in enemies)
         {
+            //Debug.Log("enemies: " + item);
             float dist = Vector3.Distance(transform.position, item.transform.position);
             if (dist < curDist)
             {
                 curDist = dist;
                 playerStorage.enemy = item;
+                //enemy = item;
+
             }
         }
         if(playerStorage.enemy != null && playerStorage.currentState == PlayerPosVector.MapStates.RAN) 
+        //if (enemy != null && playerStorage.currentState == PlayerPosVector.MapStates.RAN)
         {
+            Debug.Log("destroying enemy: " + enemy);
             Invoke("DestroyEnemy", 2f);
         }
         else
@@ -62,7 +71,7 @@ public class SceneSwitch : MonoBehaviour
 
     public void Run()
     {
-        playerStorage.sceneTransitions++;
+        //playerStorage.sceneTransitions++;
         playerStorage.currentState = PlayerPosVector.MapStates.RAN;
         Debug.Log("pressed RUN");
         battleScene.currentState = BattleScene.BattleStates.LOSE;
@@ -76,6 +85,7 @@ public class SceneSwitch : MonoBehaviour
 
         if (playerStorage.currentState == PlayerPosVector.MapStates.RAN) { 
             RemoveEnemy();
+            playerStorage.currentState = PlayerPosVector.MapStates.NORMAL;
         }
         else
         {
@@ -87,8 +97,9 @@ public class SceneSwitch : MonoBehaviour
     {
         Debug.Log("RemoveEnemy called");
         playerStorage.enemy.SetActive(false);
-        playerStorage.currentState = PlayerPosVector.MapStates.NORMAL;
-        Debug.Log(playerStorage.currentState);
+        //enemy.SetActive(false);
+        //playerStorage.currentState = PlayerPosVector.MapStates.NORMAL;
+        //Debug.Log(playerStorage.currentState);
     }
 
 }

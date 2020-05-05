@@ -12,13 +12,18 @@ public class PlayerPosVector : ScriptableObject
     public enum MapStates
     {
         NORMAL,
+        BATTLE,
         RAN
     }
     public MapStates currentState;
 
     void Start()
     {
-        sceneTransitions = 0;
         currentState = MapStates.NORMAL;
+    }
+
+    void Awake()
+    {
+        sceneTransitions = 0;
     }
 }

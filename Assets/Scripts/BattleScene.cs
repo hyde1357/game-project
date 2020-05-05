@@ -127,10 +127,10 @@ public class BattleScene : MonoBehaviour
             // Deal damage to playerCube by getting HP 
             // and subtracting it by the Roll() value
             playerCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
-            Debug.Log("ENEMY hit PLAYER.");
-        } else Debug.Log("PLAYER dodged!");
+            //Debug.Log("ENEMY hit PLAYER.");
+        } //else Debug.Log("PLAYER dodged!");
 
-        Debug.Log("Player HP: " + playerCube.GetComponent<StatSheet>().HP);
+        //Debug.Log("Player HP: " + playerCube.GetComponent<StatSheet>().HP);
 
         CheckPlayerHP();
         CheckEnemyHP();
@@ -145,10 +145,10 @@ public class BattleScene : MonoBehaviour
             // Deal damage to otherCube by getting HP 
             // and subtracting it by the Roll() value
             otherCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
-            Debug.Log("PLAYER hit ENEMY.");
-        } else Debug.Log("ENEMY dodged!");
+            //Debug.Log("PLAYER hit ENEMY.");
+        } //else Debug.Log("ENEMY dodged!");
 
-        Debug.Log("Enemy HP: " + otherCube.GetComponent<StatSheet>().HP);
+        //Debug.Log("Enemy HP: " + otherCube.GetComponent<StatSheet>().HP);
 
         CheckPlayerHP();
         CheckEnemyHP();
@@ -177,7 +177,7 @@ public class BattleScene : MonoBehaviour
         if (playerCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.LOSE;
-            Debug.Log("PLAYER has LOST the battle.");
+            //Debug.Log("PLAYER has LOST the battle.");
             return true;
         }
         else return false;

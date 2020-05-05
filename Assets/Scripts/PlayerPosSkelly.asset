@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1257ff8eb6dde3d40b5e5dd5ba18ba34, type: 3}
-  m_Name: Player Position
+  m_Name: PlayerPosSkelly
   m_EditorClassIdentifier: 
-  initialValue: {x: 0, y: 0, z: 0}
+  initialValue: {x: -4.49, y: 0.59, z: 5.56}
+  sceneTransitions: 1
+  enemy: {fileID: 0}
+  currentState: 0

@@ -10,5 +10,11 @@ EditorBuildSettings:
     guid: 47074dd0e2ed42c429b4dc13d6a76cfd
   - enabled: 1
     path: Assets/Scenes/BattleSkelly.unity
-    guid: 735c7d23288866c47bebc5699a731491
+    guid: 42eaea3510997d74f9d8e1f4892cbf97
+  - enabled: 1
+    path: Assets/Scenes/BattleSkelly1.unity
+    guid: 50174f02e0432a844b2d8cfe5a50a76d
+  - enabled: 1
+    path: Assets/Scenes/BattleSkelly2.unity
+    guid: 8ec5b3edd204de648930635de5b89f96
   m_configObjects: {}
