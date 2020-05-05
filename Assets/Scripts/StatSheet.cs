@@ -29,26 +29,26 @@ public class StatSheet : MonoBehaviour
         STRMod = calculateMod(STR);
         CharacterStats.Add(new StatBase(STR));
         StatModifiers.Add(STRMod);
-        Debug.Log("Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString());
+        //Debug.Log("Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString());
 
         // Dexterity
         DEXMod = calculateMod(DEX);
         CharacterStats.Add(new StatBase(DEX));
         StatModifiers.Add(DEXMod);
-        Debug.Log("Dexterity: " + CharacterStats[1].Value.ToString() + ", mod " + StatModifiers[1].ToString());
+        //Debug.Log("Dexterity: " + CharacterStats[1].Value.ToString() + ", mod " + StatModifiers[1].ToString());
 
         // Constitution
         CONMod = calculateMod(CON);
         CharacterStats.Add(new StatBase(CON));
         StatModifiers.Add(CONMod);
-        Debug.Log("Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString());
+        //Debug.Log("Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString());
 
         // Initialize hit points, defense, level & XP
         HP = 10 + CONMod;
         DEF = 10 + DEXMod;
         level = 1;
         XP = 0;
-        Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString() + ", level: " + level.ToString());
+        //Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString() + ", level: " + level.ToString());
     }
 
     private float calculateMod(float stat)
