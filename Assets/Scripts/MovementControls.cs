@@ -11,10 +11,12 @@ public class MovementControls : MonoBehaviour
     private float rotationSpeed = 0.07f;
     private float gravity = 3f;
 
+    public bool toggle = true;
+
     private Transform mainCameraTransform = null;
 
     private CharacterController controller = null;
-    Animator anim;
+    public Animator anim;
 
     public Vector3 gameStartVector;
     public PlayerPosVector startingPosition;
@@ -34,7 +36,10 @@ public class MovementControls : MonoBehaviour
 
     void Update()
     {
-        Move();
+        if (toggle)
+        {
+            Move();
+        }
     }
 
     private void Move()

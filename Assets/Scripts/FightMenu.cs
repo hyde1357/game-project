@@ -6,6 +6,7 @@ public class FightMenu : MonoBehaviour
 {
     public static bool FightEnsued = false;
 
+    public GameObject playerObject;
     public GameObject pauseMenuUI;
     public BattleScene battleSceneRef;
 
@@ -43,12 +44,13 @@ public class FightMenu : MonoBehaviour
     void Resume()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        playerObject.GetComponentInChildren<MovementControls>().toggle = true;
     }
 
     void Pause()
     {
-            pauseMenuUI.SetActive(true);
-            Time.timeScale = 0f;
+        pauseMenuUI.SetActive(true);
+        playerObject.GetComponentInChildren<MovementControls>().toggle = false;
+        playerObject.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 0);
     }
 }

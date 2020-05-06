@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class BattleScene : MonoBehaviour
 {
     public GameObject playerCube;
+
     public GameObject otherCube;
     private GameObject[] enemies;
 
     public FightMenu battleUI;
     public PlayerPosVector playerPosVector;
+
+
 
     public enum BattleStates {
         NONE,
@@ -34,7 +37,6 @@ public class BattleScene : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("enemy");
 
         otherCube = null;
-
 
         currentState = BattleStates.BEGIN;
         playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
@@ -148,10 +150,17 @@ public class BattleScene : MonoBehaviour
         // by using enemy's Interact script
         if (enemyInteractVals.CheckSuccess(0, 0) == true)
         {
-            // Deal damage to otherCube by getting HP 
-            // and subtracting it by the Roll() value
-            otherCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
-            //Debug.Log("PLAYER hit ENEMY.");
+            if (currentState == BattleStates.PLAYERTURN)
+            {
+                // Deal damage to otherCube by getting HP 
+                // and subtracting it by the Roll() value
+                otherCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
+                Debug.Log("FIGHT");
+
+                // this is SUPPOSED to animate an attack
+                playerCube.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 3);
+            }
+
         } //else Debug.Log("ENEMY dodged!");
 
         //Debug.Log("Enemy HP: " + otherCube.GetComponent<StatSheet>().HP);

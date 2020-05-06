@@ -3240,6 +3240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154e693c20c36c34eb6cf3b65fedd6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObject: {fileID: 270827313}
   pauseMenuUI: {fileID: 253605624}
   battleSceneRef: {fileID: 270827325}
   playerPosVector: {fileID: 11400000, guid: 0fa23f7a2a7d11a4b8a414e746ec7a93, type: 2}
@@ -6478,6 +6479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
+  toggle: 1
+  anim: {fileID: 0}
   gameStartVector: {x: 0, y: 0.69, z: -1.57}
   startingPosition: {fileID: 11400000, guid: 0fa23f7a2a7d11a4b8a414e746ec7a93, type: 2}
 --- !u!108 &270827324
