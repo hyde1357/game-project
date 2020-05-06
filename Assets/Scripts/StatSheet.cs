@@ -10,10 +10,13 @@ public class StatSheet : MonoBehaviour
     private int DEXMod;
     public int CON; // 2, Constitution
     private int CONMod;
-    public int XP;
+
     public int HP;
     public int DEF;
-    public int level;
+
+    //public int XP;
+    //public int level;
+
     public List<StatBase> CharacterStats = new List<StatBase>();
     public List<int> StatModifiers = new List<int>();
     Random dice = new Random(); // Random number generator
@@ -29,26 +32,40 @@ public class StatSheet : MonoBehaviour
         STRMod = calculateMod(STR);
         CharacterStats.Add(new StatBase(STR));
         StatModifiers.Add(STRMod);
-        //Debug.Log("Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString());
 
         // Dexterity
         DEXMod = calculateMod(DEX);
         CharacterStats.Add(new StatBase(DEX));
         StatModifiers.Add(DEXMod);
-        //Debug.Log("Dexterity: " + CharacterStats[1].Value.ToString() + ", mod " + StatModifiers[1].ToString());
 
         // Constitution
         CONMod = calculateMod(CON);
         CharacterStats.Add(new StatBase(CON));
         StatModifiers.Add(CONMod);
-        //Debug.Log("Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString());
 
-        // Initialize hit points, defense, level & XP
-        HP = 10 + CONMod;
+        // Defense
         DEF = 10 + DEXMod;
-        level = 1;
-        XP = 0;
-        //Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString() + ", level: " + level.ToString());
+
+        // Hit points. Add more to player
+        if(gameObject.tag == "Player")
+        {
+            HP = 30 + CONMod;
+        }
+        else
+        {
+            HP = 10 + CONMod;
+        }
+
+        //level = 1;
+        //XP = 0;
+
+        // Print all stat values to console on start
+        Debug.Log(
+            "  Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString() + 
+            ", Dexterity: " + CharacterStats[1].Value.ToString() + ", mod " + StatModifiers[1].ToString() +
+            ", Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString() +
+            ", HP: " + HP.ToString() + 
+            ", Defense: " + DEF.ToString());
     }
 
     private int calculateMod(int stat)

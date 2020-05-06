@@ -14,7 +14,7 @@ public class Interact : MonoBehaviour
     // Roll for attack
     public int AttackRoll()
     {
-        difficulty = (int)gameObject.GetComponent<StatSheet>().DEF;
+        difficulty = gameObject.GetComponent<StatSheet>().DEF;
         roll = new SkillCheck(d, dCount, mod);
         return roll.Roll();
     }
