@@ -7,7 +7,9 @@ public class PlayerPosVector : ScriptableObject
 {
     public Vector3 initialValue;
     public int sceneTransitions;
-    public GameObject enemy;
+    public MapStates currentState;
+    //public GameObject enemy;
+    //public GameObject[] enemies;
 
     public enum MapStates
     {
@@ -15,7 +17,6 @@ public class PlayerPosVector : ScriptableObject
         BATTLE,
         RAN
     }
-    public MapStates currentState;
 
     void Start()
     {

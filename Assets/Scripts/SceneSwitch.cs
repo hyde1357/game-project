@@ -19,7 +19,7 @@ public class SceneSwitch : MonoBehaviour
 
     void Start()
     {
-        FindSkeleton();
+        //FindSkeleton();
         //player.GetComponent<AudioSource>().Stop();
         //DontDestroyOnLoad(player);
         //Invoke("DestroyEnemy", 2f);
@@ -38,26 +38,26 @@ public class SceneSwitch : MonoBehaviour
         Debug.Log(battleScene.currentState);
     }
 
-    private void FindSkeleton()
+/*    private void FindSkeleton()
     {
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        playerStorage.enemies = GameObject.FindGameObjectsWithTag("enemy");
         float curDist = .5f;
 
-        foreach (GameObject item in enemies)
+        foreach (GameObject item in playerStorage.enemies)
         {
             //Debug.Log("enemies: " + item);
             float dist = Vector3.Distance(transform.position, item.transform.position);
             if (dist < curDist)
             {
                 curDist = dist;
-                playerStorage.enemy = item;
-                //enemy = item;
+                //playerStorage.enemy = item;
+                enemy = item;
 
             }
-        }
-        if(playerStorage.enemy != null && playerStorage.currentState == PlayerPosVector.MapStates.RAN) 
-        //if (enemy != null && playerStorage.currentState == PlayerPosVector.MapStates.RAN)
+        }  
+        //if(playerStorage.enemy != null && playerStorage.currentState == PlayerPosVector.MapStates.RAN) 
+        if (enemy != null && playerStorage.currentState == PlayerPosVector.MapStates.RAN)
         {
             Debug.Log("destroying enemy: " + enemy);
             Invoke("DestroyEnemy", 2f);
@@ -68,6 +68,9 @@ public class SceneSwitch : MonoBehaviour
         }
         //Debug.Log("Skeleton found, distance: " + playerStorage.enemy.GetComponent<Transform>.ToString());
     }
+
+
+    */
 
     public void Run()
     {
@@ -96,8 +99,11 @@ public class SceneSwitch : MonoBehaviour
     private void RemoveEnemy()
     {
         Debug.Log("RemoveEnemy called");
-        playerStorage.enemy.SetActive(false);
-        //enemy.SetActive(false);
+        //playerStorage.enemy.SetActive(false);
+
+        // Thought that maybe it would deactivate the enemy attached to the script, but
+        // this doesn't work b/c scene changes
+        enemy.SetActive(false);
         //playerStorage.currentState = PlayerPosVector.MapStates.NORMAL;
         //Debug.Log(playerStorage.currentState);
     }

@@ -38,12 +38,12 @@ public class SkillCheck
         if(total >= difficulty)
         {
             success = true;
-            Debug.Log("Success!");
+            //Debug.Log("Success!");
         }
         else
         {
             success = false;
-            Debug.Log("Fail!");
+            //Debug.Log("Fail!");
         }
         return success;
     }

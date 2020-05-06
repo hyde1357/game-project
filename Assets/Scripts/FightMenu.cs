@@ -9,29 +9,34 @@ public class FightMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public BattleScene battleSceneRef;
 
+    public PlayerPosVector playerPosVector;
+
     void Update()
     {
- /*       //CheckState();
+        CheckPlayerPosVectorState();
         if (FightEnsued)
         {
-            Resume();
+            Pause();
+            print("Fight pause");
 
         }
         else
         {
-            Pause();
-        } */
+            Resume();
+        } 
     }
 
-    private void CheckState()
+    private void CheckPlayerPosVectorState()
     {
-        if (battleSceneRef.checkStates() == BattleScene.BattleStates.BEGIN)
+        if (playerPosVector.currentState == PlayerPosVector.MapStates.BATTLE)
         {
             FightEnsued = true;
+            //print(FightEnsued);
         }
         else
         {
             FightEnsued = false;
+            //print(FightEnsued);
         }
     }
 
@@ -39,13 +44,11 @@ public class FightMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        FightEnsued = false;
     }
 
     void Pause()
     {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        FightEnsued = true;
+            pauseMenuUI.SetActive(true);
+            Time.timeScale = 0f;
     }
 }

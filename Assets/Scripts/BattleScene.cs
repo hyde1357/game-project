@@ -7,9 +7,10 @@ public class BattleScene : MonoBehaviour
 {
     public GameObject playerCube;
     public GameObject otherCube;
-//    private GameObject[] enemies;
+    private GameObject[] enemies;
 
     public FightMenu battleUI;
+    public PlayerPosVector playerPosVector;
 
     public enum BattleStates {
         NONE,
@@ -30,27 +31,28 @@ public class BattleScene : MonoBehaviour
     {
 
         // Fills array with gameobjects tagged as "enemy"
-        //enemies = GameObject.FindGameObjectsWithTag("enemy");
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
 
-        //otherCube = null;
+        otherCube = null;
 
-        // Set currentState to NONE
+
         currentState = BattleStates.BEGIN;
+        playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
         enemyInteractValsSetup();
     }
 
     void Update()
     {
         // Changes currentState if CheckDistance from Distance class returns true
-        //changeStateFromDistance();
+        changeStateFromDistance();
 
         // Checks to see what the currentState is, sends message to console.
 
         //checkStates();
 
         //Looking for an enemy that's close by
-//        otherCube = FindClosestEnemy();
-       // enemyInteractValsSetup();
+        otherCube = FindClosestEnemy();
+        enemyInteractValsSetup();
     }
 
     public void ChangeBattleState(BattleStates state)
@@ -72,12 +74,16 @@ public class BattleScene : MonoBehaviour
     {
         // changes the BattleState to BEGIN to initiate the fight
         // if the distance between two items is less than 3
-        if (otherCube!= null)
+        if (otherCube != null)
         {
             currentState = BattleStates.BEGIN;
+            playerPosVector.currentState = PlayerPosVector.MapStates.BATTLE;
         }
         else
+        {
             currentState = BattleStates.NONE;
+            playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
+        }
     }
 
     //Used to check the currentState . use as debugger to see if the state
@@ -157,7 +163,7 @@ public class BattleScene : MonoBehaviour
 
     // Finds the closest enemy
     // Not yet optimized to handle multiple enemies within the same radius
- /*   public GameObject FindClosestEnemy()
+    public GameObject FindClosestEnemy()
     {
         GameObject closest = null;
         foreach (GameObject GO in enemies)
@@ -169,7 +175,8 @@ public class BattleScene : MonoBehaviour
             }
         }
         return closest;
-    }*/
+    }
+
 
     public bool CheckPlayerHP()
     {
@@ -199,6 +206,16 @@ public class BattleScene : MonoBehaviour
         {
             Destroy(otherCube);
         }
+    }
+
+    public void Run()
+    {
+        playerPosVector.currentState = PlayerPosVector.MapStates.RAN;
+        Debug.Log("pressed RUN");
+        currentState = BattleStates.LOSE;
+        otherCube.SetActive(false);
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
+        //playerStorage.initialValue = playerPosition;
     }
 
 }
