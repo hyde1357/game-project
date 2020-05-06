@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 public class StatBase
 {
-    public float baseValue;
+    public int baseValue;
     private readonly List<StatModifier> statModifiers;
 
     // Get value
     private bool valueUpdated = true;
-    private float _value;
+    private int _value;
 
-    public float Value {
+    public int Value {
         get {
             if(valueUpdated) { 
                 _value = CalculateFinalValue();
@@ -21,7 +21,7 @@ public class StatBase
     }
 
     // Constructor
-    public StatBase(float BaseValue)
+    public StatBase(int BaseValue)
     {
         baseValue = BaseValue;
         statModifiers = new List<StatModifier>();
@@ -38,14 +38,14 @@ public class StatBase
         valueUpdated = true;
         return statModifiers.Remove(mod);
     }
-    private float CalculateFinalValue()
+    private int CalculateFinalValue()
     {
-        float finalValue = baseValue;
+        int finalValue = baseValue;
         for (int i = 0; i < statModifiers.Count; i++)
         {
             finalValue += statModifiers[i].value;
         }
         
-        return (float)Math.Round(finalValue, 4);
+        return finalValue;
     }
 }

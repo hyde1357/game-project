@@ -1,9 +1,9 @@
 ﻿
 public class StatModifier
 {
-    public readonly float value;
+    public readonly int value;
 
-    public StatModifier(float Value)
+    public StatModifier(int Value)
     {
         value = Value;
     }

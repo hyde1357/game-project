@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class StatSheet : MonoBehaviour
 {
-    public float STR; // 0, Strength
-    private float STRMod;
-    public float DEX; // 1, Dexterity
-    private float DEXMod;
-    public float CON; // 2, Constitution
-    private float CONMod;
-    public float XP;
-    public float HP;
-    public float DEF;
+    public int STR; // 0, Strength
+    private int STRMod;
+    public int DEX; // 1, Dexterity
+    private int DEXMod;
+    public int CON; // 2, Constitution
+    private int CONMod;
+    public int XP;
+    public int HP;
+    public int DEF;
     public int level;
     public List<StatBase> CharacterStats = new List<StatBase>();
-    public List<float> StatModifiers = new List<float>();
+    public List<int> StatModifiers = new List<int>();
     Random dice = new Random(); // Random number generator
 
     public void Start()
@@ -51,9 +51,9 @@ public class StatSheet : MonoBehaviour
         //Debug.Log("HP: " + HP.ToString() + ", Defense: " + DEF.ToString() + ", XP: " + XP.ToString() + ", level: " + level.ToString());
     }
 
-    private float calculateMod(float stat)
+    private int calculateMod(int stat)
     {
-        float mod;
+        int mod;
         if (stat <= 5) { mod = -3; }
         else if (stat == 6 || stat == 7) { mod = -2; }
         else if (stat == 8 || stat == 9) { mod = -1; }

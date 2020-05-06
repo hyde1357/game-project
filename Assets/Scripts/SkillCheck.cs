@@ -4,10 +4,10 @@ public class SkillCheck
 {
     public int d; //d4, d6, d8, d10, d20 etc.
     public int dCount; // How many dice are used?
-    public float mod; // Relevant skill modifier
+    public int mod; // Relevant skill modifier
     
     // Constructor
-    public SkillCheck(int D, int DCount, float Mod)
+    public SkillCheck(int D, int DCount, int Mod)
     {
         d = D;
         dCount = DCount;
@@ -49,7 +49,7 @@ public class SkillCheck
     }
 
     // Commented out Debug.Log for less clutter.
-    public void AwardXP(float xpGain)
+    public void AwardXP(int xpGain)
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<StatSheet>().XP += xpGain;
         Debug.Log("Rewarded with " + xpGain.ToString() + " xp. Current xp: " + GameObject.FindGameObjectWithTag("Player").GetComponent<StatSheet>().XP);
