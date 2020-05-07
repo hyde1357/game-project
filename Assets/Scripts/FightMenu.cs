@@ -18,7 +18,7 @@ public class FightMenu : MonoBehaviour
         if (FightEnsued)
         {
             Pause();
-            print("Fight pause");
+            //print("Fight pause");
 
         }
         else
