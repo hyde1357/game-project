@@ -46,10 +46,6 @@ public class BattleScene : MonoBehaviour
         // Changes currentState if CheckDistance from Distance class returns true
         changeStateFromDistance();
 
-        // Checks to see what the currentState is, sends message to console.
-
-        //checkStates();
-
         //Looking for an enemy that's close by
         otherCube = FindClosestEnemy();
     }
@@ -124,6 +120,9 @@ public class BattleScene : MonoBehaviour
         // Make the combat loop pause
         playerMadeMove = false;
 
+        //animation
+        otherCube.GetComponentInChildren<Animator>().Play("Armature|Attack_01");
+
         // Enemy hit check roll
         Debug.Log("ENEMY attacks.");
         SkillCheck enemyHitCheck = new SkillCheck(20, 1, otherCube.GetComponent<StatSheet>().STRMod);
@@ -136,7 +135,7 @@ public class BattleScene : MonoBehaviour
             SkillCheck damageCheck = new SkillCheck(6, 1, otherCube.GetComponent<StatSheet>().STRMod);
             playerCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
 
-            otherCube.GetComponentInChildren<Animator>().Play("Armature|Attack_01");
+            
 
             Debug.Log("ENEMY hit PLAYER.");
         } else Debug.Log("PLAYER dodged!");
@@ -147,20 +146,16 @@ public class BattleScene : MonoBehaviour
 
     public void PlayerTurn()
     {
-        // Check if player attack is successful
-        //Debug.Log("PLAYER attacks.");
         playerCube.GetComponentInChildren<MovementControls>().anim.Play("Armature|Sword_atk01");
+        // Check if player attack is successful
         bool attackRoll = otherCube.GetComponent<Interact>().AttackRoll(playerCube.GetComponent<StatSheet>().STRMod);
         if (attackRoll == true)
         {
             if (currentState == BattleStates.PLAYERTURN)
             {
-                //playerCube.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 3);
                 // Damage roll
                 SkillCheck damageCheck = new SkillCheck(6, 1, playerCube.GetComponent<StatSheet>().STRMod);
                 otherCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
-                //Debug.Log("PLAYER hit ENEMY");
-                // TODO this is SUPPOSED to animate an attack
             }
 
         } else Debug.Log("ENEMY dodged!");
