@@ -84,9 +84,6 @@ public class BattleScene : MonoBehaviour
         return currentState;
     }
     
-    // Set up button "FIGHT" to attack the enemy
-    // Temporary solution as we get the UI set up
-    //public void OnGUI()
     private IEnumerator CombatLoop()
     {
         if (currentState == BattleStates.BEGIN)
@@ -138,6 +135,9 @@ public class BattleScene : MonoBehaviour
             // Damage roll
             SkillCheck damageCheck = new SkillCheck(6, 1, otherCube.GetComponent<StatSheet>().STRMod);
             playerCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
+
+            otherCube.GetComponentInChildren<Animator>().Play("Armature|Attack_01");
+
             Debug.Log("ENEMY hit PLAYER.");
         } else Debug.Log("PLAYER dodged!");
 
@@ -148,19 +148,19 @@ public class BattleScene : MonoBehaviour
     public void PlayerTurn()
     {
         // Check if player attack is successful
-        Debug.Log("PLAYER attacks.");
+        //Debug.Log("PLAYER attacks.");
+        playerCube.GetComponentInChildren<MovementControls>().anim.Play("Armature|Sword_atk01");
         bool attackRoll = otherCube.GetComponent<Interact>().AttackRoll(playerCube.GetComponent<StatSheet>().STRMod);
         if (attackRoll == true)
         {
             if (currentState == BattleStates.PLAYERTURN)
             {
+                //playerCube.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 3);
                 // Damage roll
                 SkillCheck damageCheck = new SkillCheck(6, 1, playerCube.GetComponent<StatSheet>().STRMod);
                 otherCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
-                Debug.Log("PLAYER hit ENEMY");
-
+                //Debug.Log("PLAYER hit ENEMY");
                 // TODO this is SUPPOSED to animate an attack
-                //playerCube.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 3);
             }
 
         } else Debug.Log("ENEMY dodged!");
@@ -188,36 +188,30 @@ public class BattleScene : MonoBehaviour
     }
 
 
-    public bool CheckPlayerHP()
+    public void CheckPlayerHP()
     {
         // Check if player has hp that is 0
         if (playerCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.LOSE;
             Debug.Log("PLAYER has LOST the battle.");
-            return true;
+            //return true;
         }
-        else return false;
+        //else return false;
     }
-    public bool CheckEnemyHP()
+    public void CheckEnemyHP()
     {
         if (otherCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.WIN;
             Debug.Log("PLAYER has WON the battle.");
-            otherCube.SetActive(false);
             playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
-            return true;
+            currentState = BattleStates.NONE;
+            otherCube.SetActive(false);
+            enemies = GameObject.FindGameObjectsWithTag("enemy");
+            //return true;
         }
-        else return false;
-    }
-
-    public void onRun()
-    {
-        if (checkStates() == BattleStates.WIN)
-        {
-            Destroy(otherCube);
-        }
+        //else return false;
     }
 
     public void Run()
