@@ -23,10 +23,10 @@ public class SkillCheck
         {
             int roll = dice.Next(1, d);
             total += roll;
-            Debug.Log("d " + i.ToString() + " value: " + roll.ToString());
+            //Debug.Log("d " + i.ToString() + " value: " + roll.ToString());
         }
         total += Mathf.RoundToInt(mod);
-        Debug.Log("Roll " + dCount.ToString() + "d" + d.ToString() + " + " + mod.ToString() + ". Result: " + total.ToString());
+        //Debug.Log("Roll " + dCount.ToString() + "d" + d.ToString() + " + " + mod.ToString() + ". Result: " + total.ToString());
         return total;
     }
     

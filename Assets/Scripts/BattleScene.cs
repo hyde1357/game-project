@@ -28,7 +28,6 @@ public class BattleScene : MonoBehaviour
     //create BattleStates variable to control the state of battle
     public BattleStates currentState;
     public Distance d;
-    SkillCheck enemyInteractVals;
 
     void Start()
     {
@@ -40,7 +39,6 @@ public class BattleScene : MonoBehaviour
 
         currentState = BattleStates.BEGIN;
         playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
-        enemyInteractValsSetup();
     }
 
     void Update()
@@ -54,22 +52,11 @@ public class BattleScene : MonoBehaviour
 
         //Looking for an enemy that's close by
         otherCube = FindClosestEnemy();
-        enemyInteractValsSetup();
     }
 
     public void ChangeBattleState(BattleStates state)
     {
         currentState = state;
-    }
-
-    private void enemyInteractValsSetup()
-    {
-        if (otherCube != null)
-        {
-            // create a skillchecker object using the interact values assigned
-            // to the enemy in unity's inspector
-            enemyInteractVals = new SkillCheck(otherCube.GetComponent<Interact>().d, otherCube.GetComponent<Interact>().dCount, otherCube.GetComponent<Interact>().mod);
-        }
     }
 
     private void changeStateFromDistance()
@@ -107,12 +94,16 @@ public class BattleScene : MonoBehaviour
                 if (currentState == BattleStates.PLAYERTURN)
                 {
                     PlayerTurn();
+                    //playerCube.GetComponent<StatSheet>().PrintStats();
+                    //otherCube.GetComponent<StatSheet>().PrintStats();
                     currentState = BattleStates.ENEMYTURN;
                 }
 
                 if (currentState == BattleStates.ENEMYTURN)
                 {
                     EnemyTurn();
+                    //playerCube.GetComponent<StatSheet>().PrintStats();
+                    //otherCube.GetComponent<StatSheet>().PrintStats();
                     currentState = BattleStates.PLAYERTURN;
                 }
 
@@ -128,17 +119,18 @@ public class BattleScene : MonoBehaviour
 
     public void EnemyTurn()
     {
-        // Check to see if roll against enemy is success
-        // by using enemy's Interact script
-        if (enemyInteractVals.CheckSuccess(0, 0) == true)
-        {
-            // Deal damage to playerCube by getting HP 
-            // and subtracting it by the Roll() value
-            playerCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
-            //Debug.Log("ENEMY hit PLAYER.");
-        } //else Debug.Log("PLAYER dodged!");
+        // Enemy hit check roll
+        SkillCheck enemyHitCheck = new SkillCheck(20, 1, otherCube.GetComponent<StatSheet>().STRMod);
+        int roll = enemyHitCheck.Roll();
 
-        //Debug.Log("Player HP: " + playerCube.GetComponent<StatSheet>().HP);
+        // Check if enemy hit player
+        if(enemyHitCheck.CheckSuccess(playerCube.GetComponent<StatSheet>().DEF, roll) == true)
+        {
+            // Damage roll
+            SkillCheck damageCheck = new SkillCheck(6, 1, otherCube.GetComponent<StatSheet>().STRMod);
+            playerCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
+            Debug.Log("ENEMY hit PLAYER.");
+        } else Debug.Log("PLAYER dodged!");
 
         CheckPlayerHP();
         CheckEnemyHP();
@@ -148,22 +140,21 @@ public class BattleScene : MonoBehaviour
     {
         // Check to see if roll against player is success
         // by using enemy's Interact script
-        if (enemyInteractVals.CheckSuccess(0, 0) == true)
+        bool attackRoll = otherCube.GetComponent<Interact>().AttackRoll(playerCube.GetComponent<StatSheet>().STRMod);
+        if (attackRoll == true)
         {
             if (currentState == BattleStates.PLAYERTURN)
             {
-                // Deal damage to otherCube by getting HP 
-                // and subtracting it by the Roll() value
-                otherCube.GetComponent<StatSheet>().HP -= enemyInteractVals.Roll();
+                // Damage roll
+                SkillCheck damageCheck = new SkillCheck(6, 1, otherCube.GetComponent<StatSheet>().STRMod);
+                otherCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
                 Debug.Log("FIGHT");
 
-                // this is SUPPOSED to animate an attack
-                playerCube.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 3);
+                // TODO this is SUPPOSED to animate an attack
+                //playerCube.GetComponentInChildren<MovementControls>().anim.SetInteger("condition", 3);
             }
 
-        } //else Debug.Log("ENEMY dodged!");
-
-        //Debug.Log("Enemy HP: " + otherCube.GetComponent<StatSheet>().HP);
+        } else Debug.Log("ENEMY dodged!");
 
         CheckPlayerHP();
         CheckEnemyHP();
@@ -193,7 +184,7 @@ public class BattleScene : MonoBehaviour
         if (playerCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.LOSE;
-            //Debug.Log("PLAYER has LOST the battle.");
+            Debug.Log("PLAYER has LOST the battle.");
             return true;
         }
         else return false;
@@ -204,6 +195,7 @@ public class BattleScene : MonoBehaviour
         {
             currentState = BattleStates.WIN;
             Debug.Log("PLAYER has WON the battle.");
+            otherCube.SetActive(false);
             return true;
         }
         else return false;
@@ -224,7 +216,6 @@ public class BattleScene : MonoBehaviour
         currentState = BattleStates.LOSE;
         otherCube.SetActive(false);
         enemies = GameObject.FindGameObjectsWithTag("enemy");
-        //playerStorage.initialValue = playerPosition;
     }
 
 }

@@ -30,12 +30,12 @@ public class SceneSwitch : MonoBehaviour
     {
         //FindSkeleton();
 
-        playerStorage.initialValue = playerPosition;
+        /*playerStorage.initialValue = playerPosition;
         playerStorage.sceneTransitions++;
         SceneManager.LoadScene(sceneNum);
         battleScene.currentState = BattleScene.BattleStates.PLAYERTURN;
         playerStorage.currentState = PlayerPosVector.MapStates.BATTLE;
-        Debug.Log(battleScene.currentState);
+        Debug.Log(battleScene.currentState);*/
     }
 
 /*    private void FindSkeleton()
@@ -72,7 +72,7 @@ public class SceneSwitch : MonoBehaviour
 
     */
 
-    public void Run()
+    /*public void Run()
     {
         //playerStorage.sceneTransitions++;
         playerStorage.currentState = PlayerPosVector.MapStates.RAN;
@@ -81,9 +81,9 @@ public class SceneSwitch : MonoBehaviour
         Debug.Log("PLAYER CHOICE" + battleScene.currentState);
         SceneManager.LoadScene(0);
         playerStorage.initialValue = playerPosition;
-    }
+    }*/
 
-    void DestroyEnemy()
+    /*void DestroyEnemy()
     {
 
         if (playerStorage.currentState == PlayerPosVector.MapStates.RAN) { 
@@ -94,9 +94,9 @@ public class SceneSwitch : MonoBehaviour
         {
             return;
         }
-    }
+    }*/
 
-    private void RemoveEnemy()
+    /*private void RemoveEnemy()
     {
         Debug.Log("RemoveEnemy called");
         //playerStorage.enemy.SetActive(false);
@@ -106,6 +106,6 @@ public class SceneSwitch : MonoBehaviour
         enemy.SetActive(false);
         //playerStorage.currentState = PlayerPosVector.MapStates.NORMAL;
         //Debug.Log(playerStorage.currentState);
-    }
+    }*/
 
 }

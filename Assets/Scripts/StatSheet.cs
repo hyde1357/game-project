@@ -5,11 +5,11 @@ using UnityEngine;
 public class StatSheet : MonoBehaviour
 {
     public int STR; // 0, Strength
-    private int STRMod;
+    public int STRMod;
     public int DEX; // 1, Dexterity
-    private int DEXMod;
+    public int DEXMod;
     public int CON; // 2, Constitution
-    private int CONMod;
+    public int CONMod;
 
     public int HP;
     public int DEF;
@@ -59,12 +59,17 @@ public class StatSheet : MonoBehaviour
         //level = 1;
         //XP = 0;
 
-        // Print all stat values to console on start
+        PrintStats();
+    }
+
+    public void PrintStats()
+    {
+        // Print all stat values to console for debugging
         Debug.Log(
-            "  Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString() + 
+            "  Strength: " + CharacterStats[0].Value.ToString() + ", mod " + StatModifiers[0].ToString() +
             ", Dexterity: " + CharacterStats[1].Value.ToString() + ", mod " + StatModifiers[1].ToString() +
             ", Constitution: " + CharacterStats[2].Value.ToString() + ", mod " + StatModifiers[2].ToString() +
-            ", HP: " + HP.ToString() + 
+            ", HP: " + HP.ToString() +
             ", Defense: " + DEF.ToString());
     }
 
