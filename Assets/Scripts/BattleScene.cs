@@ -25,8 +25,6 @@ public class BattleScene : MonoBehaviour
     public enum BattleStates {
         NONE,
         BEGIN,
-        PLAYERTURN,
-        ENEMYTURN,
         WIN,
         LOSE
     }
@@ -92,19 +90,7 @@ public class BattleScene : MonoBehaviour
     {
         if (currentState == BattleStates.BEGIN)
         {
-            //currentState = BattleStates.PLAYERTURN;
-
-            //if (currentState == BattleStates.PLAYERTURN)
-            //{
-                // waiting for playerMadeMove == true
-                while (!playerMadeMove) { yield return null; }
-            //}
-
-            /*if (currentState == BattleStates.ENEMYTURN)
-            {
-                EnemyTurn();
-                currentState = BattleStates.PLAYERTURN;
-            }*/
+            while (!playerMadeMove) { yield return null; }
 
             //TODO fix mechanic so battlestate doesn't always
             // go back to "BEGIN" after player wins or loses
@@ -154,17 +140,14 @@ public class BattleScene : MonoBehaviour
     public void PlayerTurn()
     {
         playerCube.GetComponentInChildren<MovementControls>().anim.Play("Armature|Sword_atk01");
+
         // Check if player attack is successful
         bool attackRoll = otherCube.GetComponent<Interact>().AttackRoll(playerCube.GetComponent<StatSheet>().STRMod);
         if (attackRoll == true)
         {
-            //if (currentState == BattleStates.PLAYERTURN)
-            //{
-                // Damage roll
-                SkillCheck damageCheck = new SkillCheck(6, 1, playerCube.GetComponent<StatSheet>().STRMod);
-                otherCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
-                audioSource.PlayOneShot(playerHitSound);
-            //}
+            SkillCheck damageCheck = new SkillCheck(6, 1, playerCube.GetComponent<StatSheet>().STRMod);
+            otherCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
+            audioSource.PlayOneShot(playerHitSound);
         }
         else
         {
