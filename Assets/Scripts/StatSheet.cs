@@ -49,7 +49,7 @@ public class StatSheet : MonoBehaviour
         // Hit points. Add more to player
         if(gameObject.tag == "Player")
         {
-            HP = 30 + CONMod;
+            HP = 20 + CONMod;
         }
         else
         {
