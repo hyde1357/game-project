@@ -13,6 +13,13 @@ public class BattleScene : MonoBehaviour
     public FightMenu battleUI;
     public PlayerPosVector playerPosVector;
 
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip playerHitSound;
+    [SerializeField] AudioClip enemyHitSound;
+    [SerializeField] AudioClip missSound;
+
+    private AudioSource audioSource;
+
     private bool playerMadeMove = false; // has player clicked FIGHT?
 
     public enum BattleStates {
@@ -39,6 +46,7 @@ public class BattleScene : MonoBehaviour
 
         currentState = BattleStates.BEGIN;
         playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -84,26 +92,19 @@ public class BattleScene : MonoBehaviour
     {
         if (currentState == BattleStates.BEGIN)
         {
-            currentState = BattleStates.PLAYERTURN;
+            //currentState = BattleStates.PLAYERTURN;
 
-            if (currentState == BattleStates.PLAYERTURN)
-            {
+            //if (currentState == BattleStates.PLAYERTURN)
+            //{
                 // waiting for playerMadeMove == true
                 while (!playerMadeMove) { yield return null; }
+            //}
 
-                //PlayerTurn();
-                playerCube.GetComponent<StatSheet>().PrintStats();
-                otherCube.GetComponent<StatSheet>().PrintStats();
-                currentState = BattleStates.ENEMYTURN;
-            }
-
-            if (currentState == BattleStates.ENEMYTURN)
+            /*if (currentState == BattleStates.ENEMYTURN)
             {
                 EnemyTurn();
-                playerCube.GetComponent<StatSheet>().PrintStats();
-                otherCube.GetComponent<StatSheet>().PrintStats();
                 currentState = BattleStates.PLAYERTURN;
-            }
+            }*/
 
             //TODO fix mechanic so battlestate doesn't always
             // go back to "BEGIN" after player wins or loses
@@ -129,16 +130,22 @@ public class BattleScene : MonoBehaviour
         int roll = enemyHitCheck.Roll();
 
         // Check if enemy hit player
-        if(enemyHitCheck.CheckSuccess(playerCube.GetComponent<StatSheet>().DEF, roll) == true)
+        if (enemyHitCheck.CheckSuccess(playerCube.GetComponent<StatSheet>().DEF, roll) == true)
         {
             // Damage roll
             SkillCheck damageCheck = new SkillCheck(6, 1, otherCube.GetComponent<StatSheet>().STRMod);
             playerCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
 
-            
+            audioSource.PlayOneShot(enemyHitSound);
 
             Debug.Log("ENEMY hit PLAYER.");
-        } else Debug.Log("PLAYER dodged!");
+        }
+        else
+        {
+            // if attack missed
+            audioSource.PlayOneShot(missSound);
+            Debug.Log("PLAYER dodged!");
+        }
 
         CheckPlayerHP();
         CheckEnemyHP();
@@ -151,19 +158,31 @@ public class BattleScene : MonoBehaviour
         bool attackRoll = otherCube.GetComponent<Interact>().AttackRoll(playerCube.GetComponent<StatSheet>().STRMod);
         if (attackRoll == true)
         {
-            if (currentState == BattleStates.PLAYERTURN)
-            {
+            //if (currentState == BattleStates.PLAYERTURN)
+            //{
                 // Damage roll
                 SkillCheck damageCheck = new SkillCheck(6, 1, playerCube.GetComponent<StatSheet>().STRMod);
                 otherCube.GetComponent<StatSheet>().HP -= damageCheck.Roll();
-            }
-
-        } else Debug.Log("ENEMY dodged!");
+                audioSource.PlayOneShot(playerHitSound);
+            //}
+        }
+        else
+        {
+            // if attack missed
+            audioSource.PlayOneShot(missSound);
+            Debug.Log("ENEMY dodged!");
+        }
 
         CheckPlayerHP();
         CheckEnemyHP();
         playerMadeMove = true;
-        EnemyTurn();
+
+        /** Check if player won.
+         *  If player won, WinBattle()
+         *  If not, make EnemyTurn() after 1 seconds of delay to allow animations to finish
+         */
+        if(currentState != BattleStates.WIN) { Invoke("EnemyTurn", 1f); }
+        else { WinBattle(); }
     }
 
     // Finds the closest enemy
@@ -188,25 +207,28 @@ public class BattleScene : MonoBehaviour
         // Check if player has hp that is 0
         if (playerCube.GetComponent<StatSheet>().HP <= 0)
         {
+            // Happens on player death:
             currentState = BattleStates.LOSE;
+            audioSource.PlayOneShot(deathSound);
             Debug.Log("PLAYER has LOST the battle.");
-            //return true;
+            Invoke("ReloadLevel", 3f); // Reload current scene after 3 seconds delay
         }
-        //else return false;
     }
     public void CheckEnemyHP()
     {
         if (otherCube.GetComponent<StatSheet>().HP <= 0)
         {
             currentState = BattleStates.WIN;
-            Debug.Log("PLAYER has WON the battle.");
-            playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
-            currentState = BattleStates.NONE;
-            otherCube.SetActive(false);
-            enemies = GameObject.FindGameObjectsWithTag("enemy");
-            //return true;
         }
-        //else return false;
+    }
+
+    private void WinBattle()
+    {
+        Debug.Log("PLAYER has WON the battle.");
+        playerPosVector.currentState = PlayerPosVector.MapStates.NORMAL;
+        currentState = BattleStates.NONE;
+        otherCube.SetActive(false);
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
     }
 
     public void Run()
@@ -218,4 +240,9 @@ public class BattleScene : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("enemy");
     }
 
+    private void ReloadLevel()
+    {
+        // Reloads current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
